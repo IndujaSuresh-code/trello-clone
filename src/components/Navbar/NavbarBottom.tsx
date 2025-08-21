@@ -1,0 +1,28 @@
+function NavbarBottom() {
+  return (
+    <nav className="navbar-bottom">
+      <div className="navbar-bottom-left">
+        <div className="navbar-bottom-logo">
+          <p>My Trello Board</p>
+        </div>
+        <svg width="24" height="24" role="presentation" className="main" focusable="false" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M2 7V15C2 16.1046 2.89543 17 4 17H6C7.10457 17 8 16.1046 8 15V7C8 5.89543 7.10457 5 6 5H4C2.89543 5 2 5.89543 2 7ZM4 7V15H6V7L4 7Z" fill="currentColor"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M9 7V13C9 14.1046 9.89543 15 11 15H13C14.1046 15 15 14.1046 15 13V7C15 5.89543 14.1046 5 13 5H11C9.89543 5 9 5.89543 9 7ZM11 7V13H13V7L11 7Z" fill="currentColor"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M16 17V7C16 5.89543 16.8954 5 18 5H20C21.1046 5 22 5.89543 22 7V17C22 18.1046 21.1046 19 20 19H18C16.8954 19 16 18.1046 16 17ZM18 17V7L20 7V17H18Z" fill="currentColor"></path></svg>
+        <img src="src/assets/icons/arrow.png" alt="arrow" className="navbar-arrow" />
+      </div>
+      <div className="navbar-bottom-right">
+        <img src="src/assets/images/30.png" alt="profile" className="navbar-profile" />
+        <svg fill="none" viewBox="0 0 16 16" role="presentation" className="i1"><path fill="currentcolor" fill-rule="evenodd" d="M13.5 3a.5.5 0 0 0-.5-.5h-2.482a.5.5 0 0 0-.354.146L7.78 5.03a.75.75 0 0 1-.53.22H3.018a.5.5 0 0 0-.354.146l-.353.354 1.72 1.72a.75.75 0 0 1 0 1.06l-2.25 2.25L.72 9.72 2.44 8 .72 6.28a.75.75 0 0 1 0-1.06l.884-.884a2 2 0 0 1 1.414-.586h3.921l2.165-2.164A2 2 0 0 1 10.518 1H13a2 2 0 0 1 2 2v2.482a2 2 0 0 1-.586 1.414L12.25 9.061v3.921a2 2 0 0 1-.586 1.415l-.884.883a.75.75 0 0 1-1.06 0L8 13.56l-1.72 1.72-1.06-1.06 2.25-2.25a.75.75 0 0 1 1.06 0l1.72 1.72.354-.354a.5.5 0 0 0 .146-.354V8.75a.75.75 0 0 1 .22-.53l2.384-2.384a.5.5 0 0 0 .146-.354zm-6.72 7.28-5 5-1.06-1.06 5-5z" clip-rule="evenodd"></path><path fill="currentcolor" d="M12.5 4.625a1.125 1.125 0 1 1-2.25 0 1.125 1.125 0 0 1 2.25 0"></path></svg>
+        <svg fill="none" viewBox="0 0 16 16" role="presentation" className="i2"><path fill="currentcolor" fill-rule="evenodd" d="M10.377.102a.75.75 0 0 1 .346.847L8.985 7.25h4.265a.75.75 0 0 1 .53 1.28l-7.25 7.25a.75.75 0 0 1-1.253-.73l1.738-6.3H2.75a.75.75 0 0 1-.53-1.28L9.47.22a.75.75 0 0 1 .907-.118M7.43 7.25l1.093-3.96L4.56 7.25zm1.142 1.5-1.093 3.96 3.961-3.96z" clip-rule="evenodd"></path></svg>
+        <svg fill="none" viewBox="0 0 16 16" role="presentation" className="i3"><path fill="currentcolor" fill-rule="evenodd" d="M15 3.5H1V2h14zm-2 5.25H3v-1.5h10zM11 14H5v-1.5h6z" clip-rule="evenodd"></path></svg>
+        <svg fill="none" viewBox="0 0 16 16" role="presentation" className="i4"><path fill="currentcolor" fill-rule="evenodd" d="M8 0a.75.75 0 0 1 .7.48l1.705 4.434 4.403.338a.75.75 0 0 1 .422 1.324l-3.38 2.818 1.25 4.662a.75.75 0 0 1-1.148.813L8 12.159l-3.95 2.71a.75.75 0 0 1-1.15-.813l1.251-4.662L.77 6.576a.75.75 0 0 1 .422-1.324l4.403-.338L7.3.48A.75.75 0 0 1 8 0m0 2.84L6.655 6.335l-3.506.27 2.7 2.25-.973 3.627L8 10.341l3.124 2.142-.973-3.627 2.7-2.25-3.506-.27z" clip-rule="evenodd"></path></svg>
+        <svg width="24" height="24" role="presentation" focusable="false" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.5048 5.67168C11.9099 5.32669 11.2374 5.10082 10.5198 5.0267C11.2076 3.81639 12.5085 3 14 3C16.2092 3 18 4.79086 18 7C18 7.99184 17.639 8.89936 17.0413 9.59835C19.9512 10.7953 22 13.6584 22 17C22 17.5523 21.5523 18 21 18H18.777C18.6179 17.2987 18.3768 16.6285 18.0645 16H19.917C19.4892 13.4497 17.4525 11.445 14.8863 11.065C14.9608 10.7218 15 10.3655 15 10C15 9.58908 14.9504 9.18974 14.857 8.80763C15.5328 8.48668 16 7.79791 16 7C16 5.89543 15.1046 5 14 5C13.4053 5 12.8711 5.25961 12.5048 5.67168ZM10 12C11.1046 12 12 11.1046 12 10C12 8.89543 11.1046 8 10 8C8.89543 8 8 8.89543 8 10C8 11.1046 8.89543 12 10 12ZM14 10C14 10.9918 13.639 11.8994 13.0412 12.5984C15.9512 13.7953 18 16.6584 18 20C18 20.5523 17.5523 21 17 21H3C2.44772 21 2 20.5523 2 20C2 16.6584 4.04879 13.7953 6.95875 12.5984C6.36099 11.8994 6 10.9918 6 10C6 7.79086 7.79086 6 10 6C12.2091 6 14 7.79086 14 10ZM9.99999 14C12.973 14 15.441 16.1623 15.917 19H4.08295C4.55902 16.1623 7.02699 14 9.99999 14Z" fill="currentColor"></path></svg>
+        <div className="share-button">
+          <svg fill="none" viewBox="0 0 16 16" role="presentation" className="i5"><path fill="currentcolor" fill-rule="evenodd" d="M5 1.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M1 4a4 4 0 1 1 8 0 4 4 0 0 1-8 0m11.25 4.75V11h1.5V8.75H16v-1.5h-2.25V5h-1.5v2.25H10v1.5zm-8.5 1.75a2.25 2.25 0 0 0-2.25 2.25V15H0v-2.25A3.75 3.75 0 0 1 3.75 9h2.5A3.75 3.75 0 0 1 10 12.75V15H8.5v-2.25a2.25 2.25 0 0 0-2.25-2.25z" clip-rule="evenodd"></path></svg>
+          <button>Share</button>
+        </div>
+        <svg width="24" height="24" role="presentation" focusable="false" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M5 14C6.10457 14 7 13.1046 7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14ZM12 14C13.1046 14 14 13.1046 14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14ZM21 12C21 13.1046 20.1046 14 19 14C17.8954 14 17 13.1046 17 12C17 10.8954 17.8954 10 19 10C20.1046 10 21 10.8954 21 12Z" fill="currentColor"></path></svg>
+      </div>
+    </nav>
+  )
+}
+
+export default NavbarBottom
