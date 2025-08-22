@@ -1,7 +1,6 @@
 import React from 'react';
 import './CheckBox.scss';
 
-<<<<<<< HEAD
 //prop object
 interface CheckBoxProps {
   //properties
@@ -14,16 +13,6 @@ const CheckBox: React.FC<CheckBoxProps> = ({ onClick, isCompleted }) => {
   return (
     <div
       //to change the checkbox style based on completion status
-=======
-interface CheckBoxProps {
-  onClick: (e: React.MouseEvent) => void;
-  isCompleted: boolean;
-}
-
-const CheckBox: React.FC<CheckBoxProps> = ({ onClick, isCompleted }) => {
-  return (
-    <div
->>>>>>> 143a83e1a447e8591d20c1bbeb09dedd66a92cfd
       className={`checkbox-container ${isCompleted ? 'completed' : ''}`}
       onClick={onClick}
     >

@@ -18,11 +18,6 @@ const ListAction: React.FC<ListActionProps> = ({
 
   const toggleDropdown = () => setIsOpen(!isOpen);
   
-<<<<<<< HEAD
-=======
-  // The handleArchiveAllCards function is simplified to just call the prop
-  // The parent component will handle the confirmation modal.
->>>>>>> 143a83e1a447e8591d20c1bbeb09dedd66a92cfd
   const handleArchiveAllCards = () => {
     onArchiveAllCards();
     setIsOpen(false);
@@ -30,10 +25,6 @@ const ListAction: React.FC<ListActionProps> = ({
 
   return (
     <div className="list-action-dropdown">
-<<<<<<< HEAD
-=======
-      {/* 3-dot menu icon */}
->>>>>>> 143a83e1a447e8591d20c1bbeb09dedd66a92cfd
       <svg onClick={toggleDropdown} width="24" height="24" viewBox="0 0 24 24" className="list-action-icon">
         <path fill="currentColor" d="M5 14c1.1 0 2-.9 2-2s-.9-2-2-2 .9-2-2 2 .9 2 2 2zm7 0c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm7-2c0 1.1.9 2 2 2s2-.9 2-2-.9-2-2-2-2 .9-2 2z"/>
       </svg>
@@ -42,10 +33,6 @@ const ListAction: React.FC<ListActionProps> = ({
         <div className="list-action-menu">
           <div className="list-action-title">List actions</div>
           
-<<<<<<< HEAD
-=======
-          {/* Functional items */}
->>>>>>> 143a83e1a447e8591d20c1bbeb09dedd66a92cfd
           <a onClick={onAddCard}>Add card</a>
           <a onClick={onCopyList}>Copy list</a>
           <a>Move list</a>
