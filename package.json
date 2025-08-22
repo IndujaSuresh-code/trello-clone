@@ -10,18 +10,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
-<<<<<<< HEAD
     "@tanstack/react-query": "^5.85.5",
     "axios": "^1.11.0",
     "react": "^19.1.1",
     "react-beautiful-dnd": "^13.1.1",
     "react-dom": "^19.1.1",
     "serializr": "^3.0.5",
-=======
-    "react": "^18.3.1",
-    "react-beautiful-dnd": "^13.1.1",
-    "react-dom": "^18.3.1",
->>>>>>> 143a83e1a447e8591d20c1bbeb09dedd66a92cfd
     "zustand": "^5.0.8"
   },
   "devDependencies": {
