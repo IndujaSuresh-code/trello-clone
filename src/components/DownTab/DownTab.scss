@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+.down-tab {
+  height: 3rem;
+  width: 30rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  background-color: #161A1D;
+  color: #9FADBC;
+  font-family: 'Roboto', sans-serif;
+  margin-top: 490px;
+  margin-left: 400px;
+  border-radius: 10px;
+  border: 2px solid #333b42;
+}
+
+.tab-item {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  gap: 8px;
+  font-size: 14px;
+}
+
+
+
+.tab-item:nth-child(4) .switch-tabs {
+  fill: #A980F2;
+}
+
+.tab-item:nth-child(3) p {
+  color: #69a6fa;
+}
+.tab-item:nth-child(3){
+    border:1px solid #5498f7;
+    border-radius: 10px;
+    padding: 0rem 1rem;
+    height:2rem;
+    background-color: #5498f742;
+}
+.down-tab .switch-tabs {
+  width: 16px;
+  height: 16px;
+  fill: #9FADBC;
+}
