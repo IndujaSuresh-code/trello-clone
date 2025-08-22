@@ -7,8 +7,11 @@ interface CopyListModalProps {
   onCopy: (newName: string) => void;
 }
 
+<<<<<<< HEAD
 //React Hooks (useState, useEffect, useContext, etc.) 
 // give functional components state and lifecycle abilities that previously only class components had.
+=======
+>>>>>>> 143a83e1a447e8591d20c1bbeb09dedd66a92cfd
 const CopyListModal: React.FC<CopyListModalProps> = ({ title, onClose, onCopy }) => {
   const [newName, setNewName] = useState(`${title} (Copy)`);
 

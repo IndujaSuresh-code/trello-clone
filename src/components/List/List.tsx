@@ -6,9 +6,13 @@ import './List.scss';
 import ListAction from './ListAction';
 import CopyListModal from './CopyListModal';
 import ArchiveAllCardsModal from './ArchiveAllCardsModal';
+<<<<<<< HEAD
 import type { Comment, CardData, ListData } from '../../types';
 import {createCard, deleteCard,updateCard } from "../../services/cardService";
 import { updateList } from "../../services/listService";
+=======
+import type { Comment, CardData, ListData } from '../../types'; // Type-only import
+>>>>>>> 143a83e1a447e8591d20c1bbeb09dedd66a92cfd
 
 interface ListProps {
   id: string;
@@ -19,7 +23,10 @@ interface ListProps {
   onArchiveList: (listId: string) => void;
   onCopyList: (listId: string, newName: string) => void;
   onMoveCard?: (cardId: string, sourceListId: string, targetListId: string, position: number) => void;
+<<<<<<< HEAD
   onUpdateCardState: (listId: string, cardId: string, updatedCard: CardData) => void; // Added prop
+=======
+>>>>>>> 143a83e1a447e8591d20c1bbeb09dedd66a92cfd
   boardTitle?: string;
 }
 
@@ -27,20 +34,31 @@ const List: React.FC<ListProps> = ({
   id, 
   title, 
   initialCards, 
+<<<<<<< HEAD
+=======
+  listColor,
+>>>>>>> 143a83e1a447e8591d20c1bbeb09dedd66a92cfd
   lists,
   onArchiveList, 
   onCopyList,
   onMoveCard,
+<<<<<<< HEAD
   onUpdateCardState,
   boardTitle
 }) => {
   const [cards, setCards] = useState<CardData[]>(initialCards ?? []);
+=======
+  boardTitle
+}) => {
+  const [cards, setCards] = useState<CardData[]>(initialCards);
+>>>>>>> 143a83e1a447e8591d20c1bbeb09dedd66a92cfd
   const [isEditingTitle, setIsEditingTitle] = useState(false);
   const [listTitle, setListTitle] = useState(title);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [showCopyModal, setShowCopyModal] = useState(false);
   const [showArchiveAllModal, setShowArchiveAllModal] = useState(false);
 
+<<<<<<< HEAD
   // Sync cards with initialCards when they change
   useEffect(() => {
     setCards(initialCards ?? []);
@@ -113,6 +131,52 @@ const List: React.FC<ListProps> = ({
     } catch (err) {
       console.error("Error archiving all cards:", err);
     }
+=======
+  // Sync cards with initialCards for drag-and-drop updates
+  useEffect(() => {
+    setCards(initialCards);
+  }, [initialCards]);
+
+  const handleTitleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setListTitle(e.target.value);
+  };
+
+  const handleTitleBlur = () => {
+    setIsEditingTitle(false);
+  };
+
+  const handleTitleClick = () => {
+    setIsEditingTitle(true);
+  };
+
+  const handleCollapseClick = () => {
+    setIsCollapsed(!isCollapsed);
+  };
+
+  const handleAddCard = (newTitle: string) => {
+    const newCard: CardData = {
+      id: `card-${Date.now()}`,
+      text: newTitle,
+      isCompleted: false,
+      description: '', 
+      comments: [],
+      isWatching: false,
+    };
+    setCards([...cards, newCard]);
+  };
+
+  const handleArchiveCard = (cardId: string) => {
+    setCards(cards.filter(card => card.id !== cardId));
+  };
+
+  const handleUpdateCardState = (cardId: string, updatedState: { text?: string, description?: string, comments?: Comment[], isWatching?: boolean }) => {
+    setCards(cards.map(card =>
+      card.id === cardId ? {
+        ...card,
+        ...updatedState,
+      } : card
+    ));
+>>>>>>> 143a83e1a447e8591d20c1bbeb09dedd66a92cfd
   };
 
   const handleMoveCard = (cardId: string, targetListId: string, position: number) => {
@@ -120,23 +184,60 @@ const List: React.FC<ListProps> = ({
       onMoveCard(cardId, id, targetListId, position);
     }
   };
+<<<<<<< HEAD
+=======
+  
+  const handleArchiveAllCards = () => {
+    setCards([]);
+  };
+
+  const handleShowCopyModal = () => {
+    setShowCopyModal(true);
+  };
+>>>>>>> 143a83e1a447e8591d20c1bbeb09dedd66a92cfd
 
   const handleCopyList = (newName: string) => {
     onCopyList(id, newName);
     setShowCopyModal(false);
   };
 
+<<<<<<< HEAD
   return (
    <div
   className={`list-container ${isCollapsed ? 'collapsed' : ''}`}
   style={{ backgroundColor: '#000000' }}
 >
 
+=======
+  const handleCloseCopyModal = () => {
+    setShowCopyModal(false);
+  };
+
+  const handleShowArchiveAllModal = () => {
+    setShowArchiveAllModal(true);
+  };
+
+  const handleConfirmArchiveAllCards = () => {
+    handleArchiveAllCards();
+    setShowArchiveAllModal(false);
+  };
+
+  const handleCloseArchiveAllModal = () => {
+    setShowArchiveAllModal(false);
+  };
+
+  return (
+    <div
+      className={`list-container ${isCollapsed ? 'collapsed' : ''}`}
+      style={{ backgroundColor: listColor }}
+    >
+>>>>>>> 143a83e1a447e8591d20c1bbeb09dedd66a92cfd
       <div className="list-header">
         {isEditingTitle && !isCollapsed ? (
           <textarea
             className="list-title-textarea"
             value={listTitle}
+<<<<<<< HEAD
             onChange={(e) => setListTitle(e.target.value)}
             onBlur={handleUpdateListTitle}
             autoFocus
@@ -149,41 +250,79 @@ const List: React.FC<ListProps> = ({
             {listTitle}
           </h2>
         )}
+=======
+            onChange={handleTitleChange}
+            onBlur={handleTitleBlur}
+            autoFocus
+          />
+        ) : (
+          <h2 className="list-title" onClick={!isCollapsed ? handleTitleClick : undefined}>
+            {listTitle}
+          </h2>
+        )}
+
+>>>>>>> 143a83e1a447e8591d20c1bbeb09dedd66a92cfd
         <div className="list-header-icons">
           <img
             src="src/assets/icons/collapse.png"
             alt="collapse"
             className="collapse-icon"
+<<<<<<< HEAD
             onClick={() => setIsCollapsed(!isCollapsed)}
           />
         </div>
+=======
+            onClick={handleCollapseClick}
+          />
+        </div>
+
+>>>>>>> 143a83e1a447e8591d20c1bbeb09dedd66a92cfd
         {!isCollapsed && (
           <div className="list-action-container">
             {showCopyModal ? (
               <CopyListModal
                 title={listTitle}
+<<<<<<< HEAD
                 onClose={() => setShowCopyModal(false)}
+=======
+                onClose={handleCloseCopyModal}
+>>>>>>> 143a83e1a447e8591d20c1bbeb09dedd66a92cfd
                 onCopy={handleCopyList}
               />
             ) : showArchiveAllModal ? (
               <ArchiveAllCardsModal
+<<<<<<< HEAD
                 onClose={() => setShowArchiveAllModal(false)}
                 onConfirm={() => {
                   handleArchiveAllCards();
                   setShowArchiveAllModal(false);
                 }}
+=======
+                onClose={handleCloseArchiveAllModal}
+                onConfirm={handleConfirmArchiveAllCards}
+>>>>>>> 143a83e1a447e8591d20c1bbeb09dedd66a92cfd
               />
             ) : (
               <ListAction 
                 onAddCard={() => handleAddCard("New Card")}
+<<<<<<< HEAD
                 onCopyList={() => setShowCopyModal(true)}
                 onArchiveList={() => onArchiveList(id)}
                 onArchiveAllCards={() => setShowArchiveAllModal(true)}
+=======
+                onCopyList={handleShowCopyModal}
+                onArchiveList={() => onArchiveList(id)}
+                onArchiveAllCards={handleShowArchiveAllModal}
+>>>>>>> 143a83e1a447e8591d20c1bbeb09dedd66a92cfd
               />
             )}
           </div>
         )}
       </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 143a83e1a447e8591d20c1bbeb09dedd66a92cfd
       {!isCollapsed && (
         <Droppable droppableId={id}>
           {(provided) => (
@@ -202,6 +341,7 @@ const List: React.FC<ListProps> = ({
                   currentListId={id}
                   lists={lists}
                   onArchive={handleArchiveCard}
+<<<<<<< HEAD
                   onSave={handleSaveCard}
                   onMove={handleMoveCard}
                   hasDescription={!!card.description}
@@ -211,6 +351,15 @@ const List: React.FC<ListProps> = ({
                   onUpdateCardState={(cardId, updatedState) =>
                     handleUpdateCardState(cardId, updatedState)
                   }
+=======
+                  onSave={(cardId, newText) => handleUpdateCardState(cardId, { text: newText })}
+                  onMove={handleMoveCard}
+                  hasDescription={card.description.length > 0} 
+                  description={card.description} 
+                  comments={card.comments}
+                  isWatching={card.isWatching}
+                  onUpdateCardState={(updatedState) => handleUpdateCardState(card.id, updatedState)}
+>>>>>>> 143a83e1a447e8591d20c1bbeb09dedd66a92cfd
                   boardTitle={boardTitle}
                 />
               ))}

@@ -3,6 +3,7 @@ import './DetailedCard.scss';
 import CheckBox from '../CheckBox/CheckBox';
 import MoveCardModal from '../MoveCardModal';
 import type { ListData, Comment } from '../../../types';
+<<<<<<< HEAD
 import { updateCard } from '../../../services/cardService';
 import { getComments, createComment, updateComment, deleteComment } from '../../../services/commentService';
 
@@ -10,6 +11,12 @@ interface DetailedCardProps {
   onClose: (updatedState: { description: string; comments: Comment[]; isWatching: boolean; text: string }) => void;
   onMove?: (targetListId: string, position: number) => void;
   cardId: string;
+=======
+
+interface DetailedCardProps {
+  onClose: (updatedState: { description: string, comments: Comment[], isWatching: boolean }) => void;
+  onMove?: (targetListId: string, position: number) => void;
+>>>>>>> 143a83e1a447e8591d20c1bbeb09dedd66a92cfd
   cardTitle: string;
   isCompleted: boolean;
   onToggleComplete: (e: React.MouseEvent) => void;
@@ -26,7 +33,10 @@ interface DetailedCardProps {
 const DetailedCard: React.FC<DetailedCardProps> = ({
   onClose,
   onMove,
+<<<<<<< HEAD
   cardId,
+=======
+>>>>>>> 143a83e1a447e8591d20c1bbeb09dedd66a92cfd
   cardTitle,
   isCompleted,
   onToggleComplete,
@@ -34,7 +44,11 @@ const DetailedCard: React.FC<DetailedCardProps> = ({
   currentListId,
   cardPosition,
   lists,
+<<<<<<< HEAD
   boardTitle = 'My Trello board',
+=======
+  boardTitle = "My Trello board",
+>>>>>>> 143a83e1a447e8591d20c1bbeb09dedd66a92cfd
   initialDescription,
   initialComments,
   initialIsWatching
@@ -49,6 +63,7 @@ const DetailedCard: React.FC<DetailedCardProps> = ({
   const [editedCommentText, setEditedCommentText] = useState('');
   const [showMoveModal, setShowMoveModal] = useState(false);
 
+<<<<<<< HEAD
   // Sync description with initialDescription
   useEffect(() => setDescription(initialDescription), [initialDescription]);
 
@@ -76,6 +91,20 @@ const DetailedCard: React.FC<DetailedCardProps> = ({
       setDescription(initialDescription);
       setIsDescriptionEditing(false);
     }
+=======
+  useEffect(() => {
+    setDescription(initialDescription);
+    setSavedComments(initialComments);
+    setIsWatching(initialIsWatching);
+  }, [initialDescription, initialComments, initialIsWatching]);
+
+  const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setDescription(e.target.value);
+  };
+
+  const handleDescriptionSave = () => {
+    setIsDescriptionEditing(false);
+>>>>>>> 143a83e1a447e8591d20c1bbeb09dedd66a92cfd
   };
 
   const handleDescriptionCancel = () => {
@@ -83,13 +112,20 @@ const DetailedCard: React.FC<DetailedCardProps> = ({
     setIsDescriptionEditing(false);
   };
 
+<<<<<<< HEAD
   const handleEditDescription = () => setIsDescriptionEditing(true);
+=======
+  const handleEditDescription = () => {
+    setIsDescriptionEditing(true);
+  };
+>>>>>>> 143a83e1a447e8591d20c1bbeb09dedd66a92cfd
 
   const handleCommentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setComment(e.target.value);
     setIsCommentEditing(e.target.value.length > 0);
   };
 
+<<<<<<< HEAD
   const handleCommentSave = async () => {
     if (!comment.trim()) return;
     try {
@@ -110,6 +146,24 @@ const DetailedCard: React.FC<DetailedCardProps> = ({
     } catch (error) {
       console.error('Error deleting comment:', error);
     }
+=======
+  const handleCommentSave = () => {
+    if (comment.trim() !== '') {
+      const newComment = {
+        id: Date.now().toString(),
+        text: comment,
+        author: '22PW20 - INDUJA S',
+        time: new Date(),
+      };
+      setSavedComments([...savedComments, newComment]);
+      setComment('');
+      setIsCommentEditing(false);
+    }
+  };
+
+  const handleDeleteComment = (commentId: string) => {
+    setSavedComments(savedComments.filter(comment => comment.id !== commentId));
+>>>>>>> 143a83e1a447e8591d20c1bbeb09dedd66a92cfd
   };
 
   const handleEditComment = (comment: Comment) => {
@@ -117,6 +171,7 @@ const DetailedCard: React.FC<DetailedCardProps> = ({
     setEditedCommentText(comment.text);
   };
 
+<<<<<<< HEAD
   const handleSaveEditedComment = async (commentId: string) => {
     try {
       const updatedComment = await updateComment(cardId, commentId, { text: editedCommentText });
@@ -126,6 +181,14 @@ const DetailedCard: React.FC<DetailedCardProps> = ({
     } catch (error) {
       console.error('Error saving edited comment:', error);
     }
+=======
+  const handleSaveEditedComment = (commentId: string) => {
+    setSavedComments(savedComments.map(comment =>
+      comment.id === commentId ? { ...comment, text: editedCommentText } : comment
+    ));
+    setEditingCommentId(null);
+    setEditedCommentText('');
+>>>>>>> 143a83e1a447e8591d20c1bbeb09dedd66a92cfd
   };
 
   const handleCancelEdit = () => {
@@ -133,6 +196,7 @@ const DetailedCard: React.FC<DetailedCardProps> = ({
     setEditedCommentText('');
   };
 
+<<<<<<< HEAD
   const handleToggleWatch = async () => {
     try {
       const newWatchingState = !isWatching;
@@ -141,6 +205,10 @@ const DetailedCard: React.FC<DetailedCardProps> = ({
     } catch (error) {
       console.error('Error toggling watch state:', error);
     }
+=======
+  const handleToggleWatch = () => {
+    setIsWatching(!isWatching);
+>>>>>>> 143a83e1a447e8591d20c1bbeb09dedd66a92cfd
   };
 
   const handleCheckboxClick = (e: React.MouseEvent) => {
@@ -149,6 +217,7 @@ const DetailedCard: React.FC<DetailedCardProps> = ({
   };
 
   const handleMoveCard = (targetListId: string, position: number) => {
+<<<<<<< HEAD
     onMove?.(targetListId, position);
     setShowMoveModal(false);
   };
@@ -172,11 +241,42 @@ const DetailedCard: React.FC<DetailedCardProps> = ({
   };
 
   const handleClose = () => onClose({ description, comments: savedComments, isWatching, text: cardTitle });
+=======
+    if (onMove) {
+      onMove(targetListId, position);
+    }
+    setShowMoveModal(false);
+  };
+
+  const formatTimeAgo = (date: Date) => {
+    const seconds = Math.floor((new Date().getTime() - date.getTime()) / 1000);
+    let interval = seconds / 31536000;
+    if (interval > 1) return Math.floor(interval) + " years ago";
+    interval = seconds / 2592000;
+    if (interval > 1) return Math.floor(interval) + " months ago";
+    interval = seconds / 86400;
+    if (interval > 1) return Math.floor(interval) + " days ago";
+    interval = seconds / 3600;
+    if (interval > 1) return Math.floor(interval) + " hours ago";
+    interval = seconds / 60;
+    if (interval > 1) return Math.floor(interval) + " minutes ago";
+    return Math.floor(seconds) + " seconds ago";
+  };
+
+  const handleClose = () => {
+    onClose({
+      description: description,
+      comments: savedComments,
+      isWatching: isWatching,
+    });
+  };
+>>>>>>> 143a83e1a447e8591d20c1bbeb09dedd66a92cfd
 
   return (
     <div className="detailed-card-overlay">
       <div className="detailed-card-modal">
         <div className="detailed-card-header">
+<<<<<<< HEAD
           <button className="close-button" onClick={handleClose}>✕</button>
         </div>
 
@@ -187,11 +287,35 @@ const DetailedCard: React.FC<DetailedCardProps> = ({
               <img src="src/assets/icons/down.png" alt="dropdown arrow" className="dropdown-arrow" />
             </div>
 
+=======
+          <button className="close-button" onClick={handleClose}>
+            ✕
+          </button>
+        </div>
+        <div className="detailed-card-body">
+          <div className="left-panel">
+            {/* NEW DROPDOWN FOR MOVING THE CARD */}
+            <div className="card-list-dropdown" onClick={() => setShowMoveModal(true)}>
+              <span className="dropdown-title">
+                {listTitle}
+              </span>
+              <img 
+                src="src/assets/icons/down.png" 
+                alt="dropdown arrow" 
+                className="dropdown-arrow" 
+              />
+            </div>
+>>>>>>> 143a83e1a447e8591d20c1bbeb09dedd66a92cfd
             <h2 className="card-title-modal">
               <CheckBox isCompleted={isCompleted} onClick={handleCheckboxClick} />
               {cardTitle}
             </h2>
 
+<<<<<<< HEAD
+=======
+        
+
+>>>>>>> 143a83e1a447e8591d20c1bbeb09dedd66a92cfd
             <div className="card-options">
               <button>+ Add</button>
               <button>Labels</button>
@@ -203,7 +327,11 @@ const DetailedCard: React.FC<DetailedCardProps> = ({
             <div className="card-description">
               <div className="description-header">
                 <h3>Description</h3>
+<<<<<<< HEAD
                 {!isDescriptionEditing && description && (
+=======
+                {description && !isDescriptionEditing && (
+>>>>>>> 143a83e1a447e8591d20c1bbeb09dedd66a92cfd
                   <button className="edit-button" onClick={handleEditDescription}>Edit</button>
                 )}
               </div>
@@ -214,7 +342,11 @@ const DetailedCard: React.FC<DetailedCardProps> = ({
                     placeholder="Add a more detailed description..."
                     value={description}
                     onChange={handleDescriptionChange}
+<<<<<<< HEAD
                   />
+=======
+                  ></textarea>
+>>>>>>> 143a83e1a447e8591d20c1bbeb09dedd66a92cfd
                   <div className="description-actions">
                     <button className="save-button" onClick={handleDescriptionSave}>Save</button>
                     <button className="cancel-button" onClick={handleDescriptionCancel}>Cancel</button>
@@ -222,29 +354,50 @@ const DetailedCard: React.FC<DetailedCardProps> = ({
                   </div>
                 </>
               ) : (
+<<<<<<< HEAD
                 <div className="saved-description" onClick={handleEditDescription}>{description}</div>
               )}
             </div>
           </div>
 
+=======
+                <div className="saved-description" onClick={handleEditDescription}>
+                  {description}
+                </div>
+              )}
+            </div>
+          </div>
+>>>>>>> 143a83e1a447e8591d20c1bbeb09dedd66a92cfd
           <div className="right-panel">
             <div className="comments-section">
               <div className="comments-header">
                 <h3>Comments and activity</h3>
                 <button className="show-details-button">Show details</button>
               </div>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 143a83e1a447e8591d20c1bbeb09dedd66a92cfd
               <div className="comment-input-container">
                 <textarea
                   placeholder="Write a comment..."
                   value={comment}
                   onChange={handleCommentChange}
+<<<<<<< HEAD
                 />
+=======
+                ></textarea>
+>>>>>>> 143a83e1a447e8591d20c1bbeb09dedd66a92cfd
                 {isCommentEditing && (
                   <div className="comment-actions">
                     <button className="save-button" onClick={handleCommentSave}>Save</button>
                     <label>
+<<<<<<< HEAD
                       <input type="checkbox" checked={isWatching} onChange={handleToggleWatch} /> Watch
+=======
+                      <input type="checkbox" checked={isWatching} onChange={handleToggleWatch} />
+                      Watch
+>>>>>>> 143a83e1a447e8591d20c1bbeb09dedd66a92cfd
                     </label>
                   </div>
                 )}
@@ -252,6 +405,7 @@ const DetailedCard: React.FC<DetailedCardProps> = ({
 
               <div className="comments-activity-scroll-container">
                 <div className="activity-feed">
+<<<<<<< HEAD
                   {savedComments.map((c) => (
                     <div key={c.id} className="activity-item">
                       <div className="user-avatar">I</div>
@@ -262,6 +416,20 @@ const DetailedCard: React.FC<DetailedCardProps> = ({
                         </div>
 
                         {editingCommentId === c.id ? (
+=======
+                  {savedComments.map((savedComment) => (
+                    <div key={savedComment.id} className="activity-item">
+                      <div className="user-avatar">I</div>
+                      <div className="activity-info">
+                        <div className="comment-meta">
+                          <span className="comment-author">
+                            <strong>{savedComment.author}</strong>
+                          </span>
+                          <span className="activity-time">{formatTimeAgo(savedComment.time)}</span>
+                        </div>
+
+                        {editingCommentId === savedComment.id ? (
+>>>>>>> 143a83e1a447e8591d20c1bbeb09dedd66a92cfd
                           <>
                             <textarea
                               className="edit-comment-textarea"
@@ -269,17 +437,29 @@ const DetailedCard: React.FC<DetailedCardProps> = ({
                               onChange={(e) => setEditedCommentText(e.target.value)}
                             />
                             <div className="edit-comment-actions">
+<<<<<<< HEAD
                               <button className="save-button" onClick={() => handleSaveEditedComment(c.id)}>Save</button>
+=======
+                              <button className="save-button" onClick={() => handleSaveEditedComment(savedComment.id)}>Save</button>
+>>>>>>> 143a83e1a447e8591d20c1bbeb09dedd66a92cfd
                               <button className="cancel-button" onClick={handleCancelEdit}>Cancel</button>
                             </div>
                           </>
                         ) : (
                           <>
+<<<<<<< HEAD
                             <p className="comment-text-content">{c.text}</p>
                             <div className="comment-actions-links">
                               <button onClick={() => handleEditComment(c)}>Edit</button>
                               <span className="divider">·</span>
                               <button onClick={() => handleDeleteComment(c.id)}>Delete</button>
+=======
+                            <p className="comment-text-content">{savedComment.text}</p>
+                            <div className="comment-actions-links">
+                              <button onClick={() => handleEditComment(savedComment)}>Edit</button>
+                              <span className="divider">·</span>
+                              <button onClick={() => handleDeleteComment(savedComment.id)}>Delete</button>
+>>>>>>> 143a83e1a447e8591d20c1bbeb09dedd66a92cfd
                             </div>
                           </>
                         )}
@@ -293,7 +473,11 @@ const DetailedCard: React.FC<DetailedCardProps> = ({
                 <span className="action-text">
                   <strong>22PW20 - INDUJA S</strong> added this card to <strong>{listTitle}</strong>
                 </span>
+<<<<<<< HEAD
                 <span className="activity-time">37 minutes ago</span>
+=======
+                <span className="action-time">37 minutes ago</span>
+>>>>>>> 143a83e1a447e8591d20c1bbeb09dedd66a92cfd
               </div>
             </div>
           </div>
@@ -316,4 +500,8 @@ const DetailedCard: React.FC<DetailedCardProps> = ({
   );
 };
 
+<<<<<<< HEAD
 export default DetailedCard;
+=======
+export default DetailedCard;
+>>>>>>> 143a83e1a447e8591d20c1bbeb09dedd66a92cfd

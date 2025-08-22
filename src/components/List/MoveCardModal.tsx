@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 import React, { useState, useEffect } from 'react';
 import './MoveCardModal.scss';
 import type { ListData } from '../../types';
+=======
+import React, { useState } from 'react';
+import './MoveCardModal.scss';
+import type { ListData } from '../../types'; // Type-only import
+>>>>>>> 143a83e1a447e8591d20c1bbeb09dedd66a92cfd
 
 interface MoveCardModalProps {
   isOpen: boolean;
@@ -26,6 +32,7 @@ const MoveCardModal: React.FC<MoveCardModalProps> = ({
   const [selectedListId, setSelectedListId] = useState(currentListId);
   const [selectedPosition, setSelectedPosition] = useState(currentPosition);
 
+<<<<<<< HEAD
   // Update position options when selectedListId changes
   useEffect(() => {
     const targetList = lists.find((list) => list.id === selectedListId);
@@ -43,17 +50,37 @@ const MoveCardModal: React.FC<MoveCardModalProps> = ({
 
   // Generate position options
   const positionOptions = Array.from({ length: maxPosition }, (_, i) => i + 1);
+=======
+  if (!isOpen) return null;
+
+  const selectedList = lists.find(list => list.id === selectedListId);
+  const maxPosition = selectedList ? selectedList.cards.length : 0;
+
+  // Generate position options
+  const positionOptions = [];
+  for (let i = 1; i <= maxPosition + 1; i++) {
+    positionOptions.push(i);
+  }
+>>>>>>> 143a83e1a447e8591d20c1bbeb09dedd66a92cfd
 
   const handleMove = () => {
     onMove(selectedListId, selectedPosition - 1); // Convert to 0-based index
     onClose();
   };
 
+<<<<<<< HEAD
   const handleListChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const listId = e.target.value;
     setSelectedListId(listId);
     const targetList = lists.find((list) => list.id === listId);
     setSelectedPosition(targetList ? targetList.cards.length + 1 : 1); // Default to end
+=======
+  const handleListChange = (listId: string) => {
+    setSelectedListId(listId);
+    const targetList = lists.find(list => list.id === listId);
+    // Reset position to end of target list
+    setSelectedPosition(targetList ? targetList.cards.length + 1 : 1);
+>>>>>>> 143a83e1a447e8591d20c1bbeb09dedd66a92cfd
   };
 
   return (
@@ -61,7 +88,13 @@ const MoveCardModal: React.FC<MoveCardModalProps> = ({
       <div className="move-card-modal">
         <div className="move-card-header">
           <h3>Move card</h3>
+<<<<<<< HEAD
           <button className="close-button" onClick={onClose}>✕</button>
+=======
+          <button className="close-button" onClick={onClose}>
+            ✕
+          </button>
+>>>>>>> 143a83e1a447e8591d20c1bbeb09dedd66a92cfd
         </div>
 
         <div className="move-card-body">
@@ -71,7 +104,11 @@ const MoveCardModal: React.FC<MoveCardModalProps> = ({
           </div>
 
           <div className="suggested-section">
+<<<<<<< HEAD
             <h4>Suggested</h4>
+=======
+            <h4> Suggested</h4>
+>>>>>>> 143a83e1a447e8591d20c1bbeb09dedd66a92cfd
             <div className="suggested-option">
               <span className="arrow">→</span>
               <span>This Week</span>
@@ -84,8 +121,13 @@ const MoveCardModal: React.FC<MoveCardModalProps> = ({
             <div className="form-group">
               <label>Board</label>
               <div className="custom-select">
+<<<<<<< HEAD
                 <select
                   value={selectedBoard}
+=======
+                <select 
+                  value={selectedBoard} 
+>>>>>>> 143a83e1a447e8591d20c1bbeb09dedd66a92cfd
                   onChange={(e) => setSelectedBoard(e.target.value)}
                   className="select-input"
                 >
@@ -99,12 +141,21 @@ const MoveCardModal: React.FC<MoveCardModalProps> = ({
               <div className="form-group">
                 <label>List</label>
                 <div className="custom-select">
+<<<<<<< HEAD
                   <select
                     value={selectedListId}
                     onChange={handleListChange}
                     className="select-input"
                   >
                     {lists.map((list) => (
+=======
+                  <select 
+                    value={selectedListId} 
+                    onChange={(e) => handleListChange(e.target.value)}
+                    className="select-input"
+                  >
+                    {lists.map(list => (
+>>>>>>> 143a83e1a447e8591d20c1bbeb09dedd66a92cfd
                       <option key={list.id} value={list.id}>
                         {list.title}
                       </option>
@@ -117,12 +168,21 @@ const MoveCardModal: React.FC<MoveCardModalProps> = ({
               <div className="form-group">
                 <label>Position</label>
                 <div className="custom-select">
+<<<<<<< HEAD
                   <select
                     value={selectedPosition}
                     onChange={(e) => setSelectedPosition(Number(e.target.value))}
                     className="select-input"
                   >
                     {positionOptions.map((position) => (
+=======
+                  <select 
+                    value={selectedPosition} 
+                    onChange={(e) => setSelectedPosition(Number(e.target.value))}
+                    className="select-input"
+                  >
+                    {positionOptions.map(position => (
+>>>>>>> 143a83e1a447e8591d20c1bbeb09dedd66a92cfd
                       <option key={position} value={position}>
                         {position}
                       </option>
@@ -143,4 +203,8 @@ const MoveCardModal: React.FC<MoveCardModalProps> = ({
   );
 };
 
+<<<<<<< HEAD
 export default MoveCardModal;
+=======
+export default MoveCardModal;
+>>>>>>> 143a83e1a447e8591d20c1bbeb09dedd66a92cfd

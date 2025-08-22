@@ -12,11 +12,19 @@
 }
 
 .move-card-modal {
+<<<<<<< HEAD
   background: #22272b; // Darker background to match Trello's dark theme
   border-radius: 8px;
   width: 400px;
   max-width: 90vw;
   color: #b6c2cf; // Text color
+=======
+  background: #22272b; 
+  border-radius: 8px;
+  width: 400px;
+  max-width: 90vw;
+  color: #b6c2cf; 
+>>>>>>> 143a83e1a447e8591d20c1bbeb09dedd66a92cfd
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
@@ -151,14 +159,22 @@
 .select-input {
   width: 100%;
   padding: 8px 12px;
+<<<<<<< HEAD
   background-color: #2c333a; // Matches the detailed card description background
   border: 1px solid #39424d; // Matches the detailed card description border
+=======
+  background-color: #2c333a;
+  border: 1px solid #39424d;
+>>>>>>> 143a83e1a447e8591d20c1bbeb09dedd66a92cfd
   border-radius: 4px;
   color: #b6c2cf;
   font-size: 14px;
   cursor: pointer;
 
+<<<<<<< HEAD
   // Hides the native dropdown arrow
+=======
+>>>>>>> 143a83e1a447e8591d20c1bbeb09dedd66a92cfd
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -170,7 +186,10 @@
     border-color: #acbcd1;
   }
 
+<<<<<<< HEAD
   // Creates the custom dropdown arrow
+=======
+>>>>>>> 143a83e1a447e8591d20c1bbeb09dedd66a92cfd
   &::after {
     content: '▼';
     font-size: 12px;
@@ -179,7 +198,11 @@
     right: 12px;
     top: 50%;
     transform: translateY(-50%);
+<<<<<<< HEAD
     pointer-events: none; // Allows clicks to pass through to the select element
+=======
+    pointer-events: none; 
+>>>>>>> 143a83e1a447e8591d20c1bbeb09dedd66a92cfd
   }
 
   option {
@@ -191,7 +214,11 @@
 .move-button {
   width: 25%;
   padding: 10px;
+<<<<<<< HEAD
   background-color: #579dff; // Trello's primary blue
+=======
+  background-color: #579dff;
+>>>>>>> 143a83e1a447e8591d20c1bbeb09dedd66a92cfd
   border: none;
   border-radius: 4px;
   color: white;
@@ -201,7 +228,11 @@
   transition: background-color 0.2s;
 
   &:hover {
+<<<<<<< HEAD
     background-color: #4a8cd6; // Darker blue on hover
+=======
+    background-color: #4a8cd6; 
+>>>>>>> 143a83e1a447e8591d20c1bbeb09dedd66a92cfd
   }
 
   &:active {
@@ -214,14 +245,22 @@
   align-items: center;
 
   .select-input {
+<<<<<<< HEAD
     appearance: none; // hides the default arrow
+=======
+    appearance: none;
+>>>>>>> 143a83e1a447e8591d20c1bbeb09dedd66a92cfd
     -webkit-appearance: none;
     -moz-appearance: none;
     background: #2a2f35;
     color: #fff;
     border: 1px solid #444;
     border-radius: 6px;
+<<<<<<< HEAD
     padding: 6px 32px 6px 8px; // extra right padding for icon
+=======
+    padding: 6px 32px 6px 8px; 
+>>>>>>> 143a83e1a447e8591d20c1bbeb09dedd66a92cfd
     font-size: 14px;
     width: 100%;
     cursor: pointer;
@@ -232,6 +271,10 @@
     right: 10px;
     width: 14px;
     height: 14px;
+<<<<<<< HEAD
     pointer-events: none; // click passes through to select
+=======
+    pointer-events: none; 
+>>>>>>> 143a83e1a447e8591d20c1bbeb09dedd66a92cfd
   }
 }

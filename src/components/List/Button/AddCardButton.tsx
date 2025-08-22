@@ -40,7 +40,11 @@ const AddCardButton: React.FC<AddCardButtonProps> = ({ onAddCard }) => {
           ></textarea>
           <div className="add-card-actions">
             <SaveButton onClick={handleSave} />
+<<<<<<< HEAD
             <CloseButton onClose={handleClose} />
+=======
+            <CloseButton onClick={handleClose} />
+>>>>>>> 143a83e1a447e8591d20c1bbeb09dedd66a92cfd
           </div>
         </div>
       ) : (

@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 // types.ts
+=======
+>>>>>>> 143a83e1a447e8591d20c1bbeb09dedd66a92cfd
 export interface Comment {
   id: string;
   text: string;
@@ -20,6 +23,7 @@ export interface ListData {
   title: string;
   listColor: string;
   cards: CardData[];
+<<<<<<< HEAD
 }
 export interface BackendComment {
   id: number;
@@ -27,3 +31,6 @@ export interface BackendComment {
   author?: string;
   created_at?: string;
 }
+=======
+}
+>>>>>>> 143a83e1a447e8591d20c1bbeb09dedd66a92cfd
