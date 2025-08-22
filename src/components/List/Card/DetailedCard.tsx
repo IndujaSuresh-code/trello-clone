@@ -2,12 +2,15 @@ import React, { useState, useEffect } from 'react';
 import './DetailedCard.scss';
 import CheckBox from '../CheckBox/CheckBox';
 import MoveCardModal from '../MoveCardModal';
-import type { ListData, Comment } from '../../../types';
+import { Card as CardModel } from '../../../models/Card';
+import { Comment as CommentModel } from '../../../models/Comment';
+import { List as ListModel } from '../../../models/List';
 import { updateCard } from '../../../services/cardService';
 import { getComments, createComment, updateComment, deleteComment } from '../../../services/commentService';
+import { formatTimeAgo } from '../../../utils/time'; 
 
 interface DetailedCardProps {
-  onClose: (updatedState: { description: string; comments: Comment[]; isWatching: boolean; text: string }) => void;
+  onClose: (updatedState: Partial<CardModel>) => void;
   onMove?: (targetListId: string, position: number) => void;
   cardId: string;
   cardTitle: string;
@@ -16,10 +19,10 @@ interface DetailedCardProps {
   listTitle: string;
   currentListId: string;
   cardPosition: number;
-  lists: ListData[];
+  lists: ListModel[];
   boardTitle?: string;
   initialDescription: string;
-  initialComments: Comment[];
+  initialComments: CommentModel[];
   initialIsWatching: boolean;
 }
 
@@ -44,15 +47,13 @@ const DetailedCard: React.FC<DetailedCardProps> = ({
   const [comment, setComment] = useState('');
   const [isCommentEditing, setIsCommentEditing] = useState(false);
   const [isWatching, setIsWatching] = useState(initialIsWatching);
-  const [savedComments, setSavedComments] = useState<Comment[]>(initialComments);
+  const [savedComments, setSavedComments] = useState<CommentModel[]>(initialComments);
   const [editingCommentId, setEditingCommentId] = useState<string | null>(null);
   const [editedCommentText, setEditedCommentText] = useState('');
   const [showMoveModal, setShowMoveModal] = useState(false);
 
-  // Sync description with initialDescription
   useEffect(() => setDescription(initialDescription), [initialDescription]);
 
-  // Fetch comments when the component mounts
   useEffect(() => {
     const fetchComments = async () => {
       try {
@@ -66,7 +67,6 @@ const DetailedCard: React.FC<DetailedCardProps> = ({
   }, [cardId]);
 
   const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => setDescription(e.target.value);
-
   const handleDescriptionSave = async () => {
     try {
       const updatedCard = await updateCard(currentListId, cardId, { description });
@@ -77,19 +77,13 @@ const DetailedCard: React.FC<DetailedCardProps> = ({
       setIsDescriptionEditing(false);
     }
   };
-
-  const handleDescriptionCancel = () => {
-    setDescription(initialDescription);
-    setIsDescriptionEditing(false);
-  };
-
+  const handleDescriptionCancel = () => { setDescription(initialDescription); setIsDescriptionEditing(false); };
   const handleEditDescription = () => setIsDescriptionEditing(true);
 
   const handleCommentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setComment(e.target.value);
     setIsCommentEditing(e.target.value.length > 0);
   };
-
   const handleCommentSave = async () => {
     if (!comment.trim()) return;
     try {
@@ -97,89 +91,39 @@ const DetailedCard: React.FC<DetailedCardProps> = ({
       setSavedComments((prev) => [...prev, newComment]);
       setComment('');
       setIsCommentEditing(false);
-    } catch (error) {
-      console.error('Error saving comment:', error);
-    }
+    } catch (error) { console.error('Error saving comment:', error); }
   };
 
   const handleDeleteComment = async (commentId: string) => {
     try {
       await deleteComment(cardId, commentId);
-      //filter out all elements that do not match the deleted comment id
       setSavedComments((prev) => prev.filter((c) => c.id !== commentId));
-    } catch (error) {
-      console.error('Error deleting comment:', error);
-    }
+    } catch (error) { console.error('Error deleting comment:', error); }
   };
 
-  const handleEditComment = (comment: Comment) => {
-    setEditingCommentId(comment.id);
-    setEditedCommentText(comment.text);
-  };
-
+  const handleEditComment = (c: CommentModel) => { setEditingCommentId(c.id); setEditedCommentText(c.text); };
   const handleSaveEditedComment = async (commentId: string) => {
     try {
       const updatedComment = await updateComment(cardId, commentId, { text: editedCommentText });
       setSavedComments((prev) => prev.map((c) => (c.id === commentId ? updatedComment : c)));
       setEditingCommentId(null);
       setEditedCommentText('');
-    } catch (error) {
-      console.error('Error saving edited comment:', error);
-    }
+    } catch (error) { console.error('Error saving edited comment:', error); }
   };
-
-  const handleCancelEdit = () => {
-    setEditingCommentId(null);
-    setEditedCommentText('');
-  };
-
-  const handleToggleWatch = async () => {
-    try {
-      const newWatchingState = !isWatching;
-      await updateCard(currentListId, cardId, { isWatching: newWatchingState });
-      setIsWatching(newWatchingState);
-    } catch (error) {
-      console.error('Error toggling watch state:', error);
-    }
-  };
-
-  const handleCheckboxClick = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    onToggleComplete(e);
-  };
-
-  const handleMoveCard = (targetListId: string, position: number) => {
-    onMove?.(targetListId, position);
-    setShowMoveModal(false);
-  };
-
-  const formatTimeAgo = (time?: string | number | Date) => {
-    if (!time) return 'Just now';
-    const date = new Date(time);
-    if (isNaN(date.getTime())) return 'Just now';
-    const seconds = Math.floor((Date.now() - date.getTime()) / 1000);
-    if (seconds < 60) return `${seconds} seconds ago`;
-    const minutes = Math.floor(seconds / 60);
-    if (minutes < 60) return `${minutes} minutes ago`;
-    const hours = Math.floor(minutes / 60);
-    if (hours < 24) return `${hours} hours ago`;
-    const days = Math.floor(hours / 24);
-    if (days < 30) return `${days} days ago`;
-    const months = Math.floor(days / 30);
-    if (months < 12) return `${months} months ago`;
-    const years = Math.floor(months / 12);
-    return `${years} years ago`;
-  };
-
+  const handleCancelEdit = () => { setEditingCommentId(null); setEditedCommentText(''); };
+  const handleToggleWatch = async () => { try { const newState = !isWatching; await updateCard(currentListId, cardId, { isWatching: newState }); setIsWatching(newState); } catch (error) { console.error(error); } };
+  const handleCheckboxClick = (e: React.MouseEvent) => { e.stopPropagation(); onToggleComplete(e); };
+  const handleMoveCard = (targetListId: string, position: number) => { onMove?.(targetListId, position); setShowMoveModal(false); };
   const handleClose = () => onClose({ description, comments: savedComments, isWatching, text: cardTitle });
 
   return (
     <div className="detailed-card-overlay">
       <div className="detailed-card-modal">
+        {/* Header */}
         <div className="detailed-card-header">
           <button className="close-button" onClick={handleClose}>✕</button>
         </div>
-
+        {/* Body */}
         <div className="detailed-card-body">
           <div className="left-panel">
             <div className="card-list-dropdown" onClick={() => setShowMoveModal(true)}>
@@ -203,9 +147,7 @@ const DetailedCard: React.FC<DetailedCardProps> = ({
             <div className="card-description">
               <div className="description-header">
                 <h3>Description</h3>
-                {!isDescriptionEditing && description && (
-                  <button className="edit-button" onClick={handleEditDescription}>Edit</button>
-                )}
+                {!isDescriptionEditing && description && <button className="edit-button" onClick={handleEditDescription}>Edit</button>}
               </div>
 
               {isDescriptionEditing || !description ? (
@@ -233,12 +175,9 @@ const DetailedCard: React.FC<DetailedCardProps> = ({
                 <h3>Comments and activity</h3>
                 <button className="show-details-button">Show details</button>
               </div>
+
               <div className="comment-input-container">
-                <textarea
-                  placeholder="Write a comment..."
-                  value={comment}
-                  onChange={handleCommentChange}
-                />
+                <textarea placeholder="Write a comment..." value={comment} onChange={handleCommentChange} />
                 {isCommentEditing && (
                   <div className="comment-actions">
                     <button className="save-button" onClick={handleCommentSave}>Save</button>
@@ -286,13 +225,6 @@ const DetailedCard: React.FC<DetailedCardProps> = ({
                     </div>
                   ))}
                 </div>
-              </div>
-
-              <div className="card-action-log">
-                <span className="action-text">
-                  <strong>22PW20 - INDUJA S</strong> added this card to <strong>{listTitle}</strong>
-                </span>
-                <span className="activity-time">37 minutes ago</span>
               </div>
             </div>
           </div>

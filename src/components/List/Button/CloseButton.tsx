@@ -1,4 +1,3 @@
-
 import React from 'react';
 import './CloseButton.scss';
 
@@ -8,7 +7,7 @@ interface CloseButtonProps {
 
 const CloseButton: React.FC<CloseButtonProps> = ({ onClose }) => {
   return (
-    <button className="close-button" onClick={onClose}>
+    <button className="button button--close" onClick={onClose}>
       &times;
     </button>
   );

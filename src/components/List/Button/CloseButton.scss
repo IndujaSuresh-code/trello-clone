@@ -1,7 +1,11 @@
-.close-button {
-  background: transparent;
-  border: none;
-  font-size: 24px;
-  color: #9fadbc;
-  cursor: pointer;
+.button {
+  &--close {
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    color: #9fadbc;
+    cursor: pointer;
+    line-height: 1; 
+    padding: 0; 
+  }
 }

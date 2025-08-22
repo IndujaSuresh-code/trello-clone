@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './MoveCardModal.scss';
-import type { ListData } from '../../types';
+import { List as ListModel } from '../../models/List';
 
 interface MoveCardModalProps {
   isOpen: boolean;
@@ -9,7 +9,7 @@ interface MoveCardModalProps {
   currentListId: string;
   currentListTitle: string;
   currentPosition: number;
-  lists: ListData[];
+  lists: ListModel[];
   boardTitle: string;
 }
 
@@ -26,26 +26,21 @@ const MoveCardModal: React.FC<MoveCardModalProps> = ({
   const [selectedListId, setSelectedListId] = useState(currentListId);
   const [selectedPosition, setSelectedPosition] = useState(currentPosition);
 
-  // Update position options when selectedListId changes
   useEffect(() => {
     const targetList = lists.find((list) => list.id === selectedListId);
     const maxPosition = targetList ? targetList.cards.length : 0;
-    // Reset position to the end if the current position exceeds the max
-    if (selectedPosition > maxPosition + 1) {
-      setSelectedPosition(maxPosition + 1);
-    }
+    if (selectedPosition > maxPosition + 1) setSelectedPosition(maxPosition + 1);
   }, [selectedListId, selectedPosition, lists]);
 
   if (!isOpen) return null;
 
   const selectedList = lists.find((list) => list.id === selectedListId);
-  const maxPosition = selectedList ? selectedList.cards.length + 1 : 1; // +1 for new position at end
+  const maxPosition = selectedList ? selectedList.cards.length + 1 : 1;
 
-  // Generate position options
   const positionOptions = Array.from({ length: maxPosition }, (_, i) => i + 1);
 
   const handleMove = () => {
-    onMove(selectedListId, selectedPosition - 1); // Convert to 0-based index
+    onMove(selectedListId, selectedPosition - 1); // 0-based index
     onClose();
   };
 
@@ -53,7 +48,7 @@ const MoveCardModal: React.FC<MoveCardModalProps> = ({
     const listId = e.target.value;
     setSelectedListId(listId);
     const targetList = lists.find((list) => list.id === listId);
-    setSelectedPosition(targetList ? targetList.cards.length + 1 : 1); // Default to end
+    setSelectedPosition(targetList ? targetList.cards.length + 1 : 1);
   };
 
   return (
@@ -134,9 +129,7 @@ const MoveCardModal: React.FC<MoveCardModalProps> = ({
             </div>
           </div>
 
-          <button className="move-button" onClick={handleMove}>
-            Move
-          </button>
+          <button className="move-button" onClick={handleMove}>Move</button>
         </div>
       </div>
     </div>

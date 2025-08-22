@@ -1,9 +1,4 @@
-//The useState hook allows you to add state to a functional component. 
-//State is data that changes over time and affects the rendering of the component. 
-//The useEffect handles side effects .A side effect is anything that affects something outside the component's scope, 
-//like fetching data from an API
 import React, { useState, useEffect } from 'react';
-//useEffect - run code when something changes
 import { Draggable } from 'react-beautiful-dnd';
 import CheckBox from '../CheckBox/CheckBox';
 import EditCardButton from '../Button/EditCardButton';
@@ -11,7 +6,9 @@ import SaveButton from '../Button/SaveButton';
 import CloseButton from '../Button/CloseButton';
 import './Card.scss';
 import DetailedCard from './DetailedCard';
-import type { ListData, Comment } from '../../../types';// Import shared types
+import { Card as CardModel } from '../../../models/Card';
+import { Comment as CommentModel } from '../../../models/Comment';
+import { List as ListModel } from '../../../models/List';
 import { updateCard } from '../../../services/cardService';
 
 interface CardProps {
@@ -20,18 +17,15 @@ interface CardProps {
   text: string;
   listTitle: string;
   currentListId: string;
-  lists: ListData[];//needed for moving cards between lists
+  lists: ListModel[];
   onArchive: (cardId: string) => void;
-  onSave: (id: string, newText: string) => void; //callback when user saves an edit
+  onSave: (id: string, newText: string) => void;
   onMove?: (cardId: string, targetListId: string, position: number) => void;
   hasDescription: boolean;
   description: string;
-  comments: Comment[];
+  comments: CommentModel[];
   isWatching: boolean;
-  onUpdateCardState: (//callback to sync state when detailed view changes something
-    cardId: string,
-    updatedState: { description?: string; comments?: Comment[]; isWatching?: boolean; text?: string }
-  ) => void;
+  onUpdateCardState: (cardId: string, updatedState: Partial<CardModel>) => void;
   boardTitle?: string;
 }
 
@@ -52,7 +46,6 @@ const Card: React.FC<CardProps> = ({
   onUpdateCardState,
   boardTitle,
 }) => {
-  //state variables
   const [isDetailedViewOpen, setIsDetailedViewOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
@@ -60,51 +53,33 @@ const Card: React.FC<CardProps> = ({
   const [tooltip, setTooltip] = useState('');
   const [isTooltipVisible, setIsTooltipVisible] = useState(false);
 
-  //run when comments or id changes
-  useEffect(() => {
-    console.log(`Card ${id} comments:`, comments);
-  }, [comments, id]);
+  useEffect(() => setEditedText(text ?? ''), [text]);
+  useEffect(() => console.log(`Card ${id} comments:`, comments), [comments, id]);
 
-  useEffect(() => {
-    setEditedText(text ?? '');
-  }, [text]);
-
-  //Opens detailed view unless you’re editing
   const handleCardClick = () => {
     if (!isEditing) setIsDetailedViewOpen(true);
   };
 
-  const handleCloseDetailedView = (updatedState: {
-    description: string;
-    comments: Comment[];
-    isWatching: boolean;
-    text: string;
-  }) => {
-    console.log('Card: Received updated state from DetailedCard:', updatedState);
-    //update and close
+  const handleCloseDetailedView = (updatedState: Partial<CardModel>) => {
     onUpdateCardState(id, updatedState);
     setIsDetailedViewOpen(false);
   };
 
   const handleMoveCard = (targetListId: string, position: number) => {
-    if (onMove) onMove(id, targetListId, position);
+    onMove?.(id, targetListId, position);
     setIsDetailedViewOpen(false);
   };
 
   const handleEditClick = (e: React.MouseEvent) => {
-    //prevent an event from bubbling up the DOM tree
     e.stopPropagation();
     setIsEditing(true);
   };
 
   const handleSaveClick = async (e: React.MouseEvent) => {
-    //when i click save , the detailed view should not open
     e.stopPropagation();
-    //This handler returns a Promise<void> because it awaits an async 
-    //operation (saving to backend)
     try {
-      await updateCard(currentListId, id, { text: editedText }); //backend update
-      onSave(id, editedText); //notify parent of change
+      await updateCard(currentListId, id, { text: editedText });
+      onSave(id, editedText);
       setIsEditing(false);
     } catch (error) {
       console.error('Error updating card:', error);
@@ -120,7 +95,6 @@ const Card: React.FC<CardProps> = ({
   const handleCheckboxClick = async (e: React.MouseEvent) => {
     e.stopPropagation();
     try {
-      //await ensures you don’t update UI until the server confirms
       await updateCard(currentListId, id, { isCompleted: !isCompleted });
       setIsCompleted(!isCompleted);
     } catch (error) {
@@ -142,7 +116,6 @@ const Card: React.FC<CardProps> = ({
   return (
     <Draggable draggableId={id} index={index}>
       {(provided) => (
-        //outer div = draggable container. It enables DnD functionality.
         <div
           className="card-wrapper"
           ref={provided.innerRef}
@@ -150,7 +123,6 @@ const Card: React.FC<CardProps> = ({
           {...provided.dragHandleProps}
         >
           <div
-          //add checkbox when its clicked and enable diting
             className={`card ${isCompleted ? 'completed' : ''} ${isEditing ? 'editing' : ''}`}
             onClick={handleCardClick}
           >

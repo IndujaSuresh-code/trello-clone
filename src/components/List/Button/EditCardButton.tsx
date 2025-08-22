@@ -7,8 +7,8 @@ interface EditCardButtonProps {
 
 const EditCardButton: React.FC<EditCardButtonProps> = ({ onClick }) => {
   return (
-    <button className="edit-card-button" onClick={onClick}>
-      <img src="src/assets/icons/edit.png" alt="Edit Icon" />
+    <button className="button button--edit" onClick={onClick}>
+      <img src="src/assets/icons/edit.png" alt="Edit Icon" className="button__icon" />
     </button>
   );
 };

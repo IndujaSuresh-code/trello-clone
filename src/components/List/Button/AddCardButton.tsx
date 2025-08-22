@@ -28,27 +28,37 @@ const AddCardButton: React.FC<AddCardButtonProps> = ({ onAddCard }) => {
   };
 
   return (
-    <div className="add-card-container">
+    <div className="add-card">
       {isAdding ? (
-        <div className="add-card-form">
+        <div className="add-card__form">
           <textarea
-            className="add-card-textarea"
+            className="add-card__textarea"
             placeholder="Enter a title or paste a link"
             value={cardTitle}
             onChange={(e) => setCardTitle(e.target.value)}
             autoFocus
           ></textarea>
-          <div className="add-card-actions">
+          <div className="add-card__actions">
             <SaveButton onClick={handleSave} />
             <CloseButton onClose={handleClose} />
           </div>
         </div>
       ) : (
-        <button className="add-card-button" onClick={handleAddClick}>
-          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" className="add-card-icon">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+        <button className="add-card__button" onClick={handleAddClick}>
+          <svg
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            className="add-card__icon"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+            />
           </svg>
-          <p>Add a card</p>
+          <p className="add-card__label">Add a card</p>
         </button>
       )}
     </div>
