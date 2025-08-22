@@ -6,11 +6,8 @@
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
-<<<<<<< HEAD
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-=======
->>>>>>> 143a83e1a447e8591d20c1bbeb09dedd66a92cfd
 
     /* Bundler mode */
     "moduleResolution": "bundler",
