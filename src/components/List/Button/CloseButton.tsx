@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import './CloseButton.scss';
 
 interface CloseButtonProps {

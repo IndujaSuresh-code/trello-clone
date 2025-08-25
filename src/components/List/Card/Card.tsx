@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import CheckBox from '../CheckBox/CheckBox';
 import EditCardButton from '../Button/EditCardButton';

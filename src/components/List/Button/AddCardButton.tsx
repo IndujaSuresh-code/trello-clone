@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './AddCardButton.scss';
 import CloseButton from './CloseButton';
 import SaveButton from './SaveButton';
@@ -7,7 +7,7 @@ interface AddCardButtonProps {
   onAddCard: (title: string) => void;
 }
 
-const AddCardButton: React.FC<AddCardButtonProps> = ({ onAddCard }) => {
+const AddCardButton = ({ onAddCard }: AddCardButtonProps) => {
   const [isAdding, setIsAdding] = useState(false);
   const [cardTitle, setCardTitle] = useState('');
 

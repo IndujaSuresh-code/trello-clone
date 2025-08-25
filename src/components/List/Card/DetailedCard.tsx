@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import * as React from 'react';
+import  { useState, useEffect } from 'react';
 import './DetailedCard.scss';
 import CheckBox from '../CheckBox/CheckBox';
 import MoveCardModal from '../MoveCardModal';

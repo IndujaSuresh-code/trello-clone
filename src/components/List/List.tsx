@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import * as React from 'react';
+import { useState, useEffect } from 'react';
 import { Droppable } from 'react-beautiful-dnd';
 import Card from './Card/Card';
 import AddCardButton from './Button/AddCardButton';
@@ -10,6 +11,12 @@ import { Card as CardModel } from '../../models/Card';
 import { List as ListModel } from '../../models/List';
 import { createCard, deleteCard, updateCard } from '../../services/cardService';
 import { updateList } from '../../services/listService';
+
+type DroppableProvidedType = {
+  droppableProps: React.HTMLProps<HTMLDivElement>;
+  innerRef: (element: HTMLElement | null) => void;
+  placeholder: React.ReactNode;
+};
 
 interface ListProps {
   id: string;
@@ -41,32 +48,50 @@ const List: React.FC<ListProps> = ({
   const [showCopyModal, setShowCopyModal] = useState(false);
   const [showArchiveAllModal, setShowArchiveAllModal] = useState(false);
 
-  useEffect(() => { setCards(initialCards ?? []); }, [initialCards]);
+  useEffect(() => {
+    setCards(initialCards ?? []);
+  }, [initialCards]);
 
   const handleUpdateListTitle = async () => {
-    try { await updateList(id, { title: listTitle }); setIsEditingTitle(false); }
-    catch (err) { console.error('Error updating list title:', err); }
+    try {
+      await updateList(id, { title: listTitle });
+      setIsEditingTitle(false);
+    } catch (err) {
+      console.error('Error updating list title:', err);
+    }
   };
 
   const handleAddCard = async (newTitle: string) => {
     try {
       const newCard = await createCard(id, { title: newTitle, description: '' });
       setCards((prev) => {
+        const updatedCards = [...prev, newCard];
         onUpdateCardState(id, newCard.id, newCard);
-        return [...prev, newCard];
+        return updatedCards;
       });
-    } catch (err) { console.error('Error adding card:', err); }
+    } catch (err) {
+      console.error('Error adding card:', err);
+    }
   };
 
   const handleArchiveCard = async (cardId: string) => {
-    try { await deleteCard(id, cardId); setCards((prev) => prev.filter(c => c.id !== cardId)); }
-    catch (err) { console.error('Error archiving card:', err); }
+    try {
+      await deleteCard(id, cardId);
+      setCards((prev) => prev.filter(c => c.id !== cardId));
+    } catch (err) {
+      console.error('Error archiving card:', err);
+    }
   };
 
-  const handleSaveCard = (cardId: string, newText: string) => {
-    setCards((prev) => prev.map(c => c.id === cardId ? { ...c, text: newText } : c));
-    const updatedCard = cards.find(c => c.id === cardId);
-    if (updatedCard) onUpdateCardState(id, cardId, { ...updatedCard, text: newText });
+  const handleSaveCard = async (cardId: string, newText: string) => {
+    try {
+      const updatedCard = { ...(cards.find(c => c.id === cardId) || {}), text: newText };
+      await updateCard(id, cardId, updatedCard);
+      setCards((prev) => prev.map(c => c.id === cardId ? { ...c, text: newText } : c));
+      onUpdateCardState(id, cardId, { ...updatedCard, text: newText } as CardModel);
+    } catch (err) {
+      console.error('Error saving card:', err);
+    }
   };
 
   const handleUpdateCardState = async (cardId: string, updatedState: Partial<CardModel>) => {
@@ -74,19 +99,28 @@ const List: React.FC<ListProps> = ({
       const updated = await updateCard(id, cardId, updatedState);
       setCards((prev) => prev.map(c => c.id === cardId ? updated : c));
       onUpdateCardState(id, cardId, updated);
-    } catch (err) { console.error('Error updating card:', err); }
+    } catch (err) {
+      console.error('Error updating card:', err);
+    }
   };
 
   const handleArchiveAllCards = async () => {
-    try { await Promise.all(cards.map(c => deleteCard(id, c.id))); setCards([]); }
-    catch (err) { console.error('Error archiving all cards:', err); }
+    try {
+      await Promise.all(cards.map(c => deleteCard(id, c.id)));
+      setCards([]);
+    } catch (err) {
+      console.error('Error archiving all cards:', err);
+    }
   };
 
   const handleMoveCard = (cardId: string, targetListId: string, position: number) => {
     onMoveCard?.(cardId, id, targetListId, position);
   };
 
-  const handleCopyList = (newName: string) => { onCopyList(id, newName); setShowCopyModal(false); };
+  const handleCopyList = (newName: string) => {
+    onCopyList(id, newName);
+    setShowCopyModal(false);
+  };
 
   return (
     <div className={`list-container ${isCollapsed ? 'collapsed' : ''}`} style={{ backgroundColor: '#000' }}>
@@ -104,7 +138,6 @@ const List: React.FC<ListProps> = ({
             {listTitle}
           </h2>
         )}
-
         <div className="list-header-icons">
           <img
             src="src/assets/icons/collapse.png"
@@ -113,7 +146,6 @@ const List: React.FC<ListProps> = ({
             onClick={() => setIsCollapsed(!isCollapsed)}
           />
         </div>
-
         {!isCollapsed && (
           <div className="list-action-container">
             {showCopyModal ? (
@@ -137,7 +169,7 @@ const List: React.FC<ListProps> = ({
 
       {!isCollapsed && (
         <Droppable droppableId={id}>
-          {(provided) => (
+          {(provided: DroppableProvidedType) => (
             <div className="card-list" {...provided.droppableProps} ref={provided.innerRef}>
               {cards.map((card, index) => (
                 <Card
