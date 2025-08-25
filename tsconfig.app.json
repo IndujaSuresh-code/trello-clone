@@ -23,7 +23,8 @@
     "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+    "types": ["@netlify/functions"]
   },
   "include": ["src", "declarations.d.ts"]
 }
