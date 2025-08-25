@@ -160,7 +160,7 @@ const onDragEnd = (result: MyDropResult) => {
   };
 
   const handleCopyList = async (listId: string, newName: string) => {
-    const listToCopy = lists.find((list) => list.id === listId);
+    const listToCopy = lists?.find((list) => list.id === listId);
     if (!listToCopy) return;
 
     try {
