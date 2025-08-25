@@ -1,8 +1,8 @@
 import axios from "axios";
 //converts plain JS objects from the API into typed models (Card and Comment)
 import { deserialize } from "serializr";
-import { API_BASE_URL } from "../constants/api";
-import { CARDS } from "../constants/endpoints";
+import { API_BASE_URL } from "../routes/api";
+import { CARDS } from "../routes/endpoints";
 import { Card } from "../models/Card";
 import { Comment } from "../models/Comment";
 

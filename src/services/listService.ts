@@ -1,7 +1,7 @@
 import axios from "axios";
 import { deserialize } from "serializr";
-import { API_BASE_URL } from "../constants/api";
-import { LISTS } from "../constants/endpoints";
+import { API_BASE_URL } from "../routes/api";
+import { LISTS } from "../routes/endpoints";
 import { List } from "../models/List";
 import { Card } from "../models/Card";
 import { Comment } from "../models/Comment";
