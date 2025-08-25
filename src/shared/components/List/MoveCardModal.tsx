@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import './MoveCardModal.scss';
-import { List as ListModel } from '../../models/List';
+import { List as ListModel } from '../../../models/List';
 
 interface MoveCardModalProps {
   isOpen: boolean;

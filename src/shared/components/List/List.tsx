@@ -7,10 +7,10 @@ import './List.scss';
 import ListAction from './ListAction';
 import CopyListModal from './CopyListModal';
 import ArchiveAllCardsModal from './ArchiveAllCardsModal';
-import { Card as CardModel } from '../../models/Card';
-import { List as ListModel } from '../../models/List';
-import { createCard, deleteCard, updateCard } from '../../services/cardService';
-import { updateList } from '../../services/listService';
+import { Card as CardModel } from '../../../models/Card';
+import { List as ListModel } from '../../../models/List';
+import { createCard, deleteCard, updateCard } from '../../../services/cardService';
+import { updateList } from '../../../services/listService';
 
 type DroppableProvidedType = {
   droppableProps: React.HTMLProps<HTMLDivElement>;

@@ -3,12 +3,12 @@ import  { useState, useEffect } from 'react';
 import './DetailedCard.scss';
 import CheckBox from '../CheckBox/CheckBox';
 import MoveCardModal from '../MoveCardModal';
-import { Card as CardModel } from '../../../models/Card';
-import { Comment as CommentModel } from '../../../models/Comment';
-import { List as ListModel } from '../../../models/List';
-import { updateCard } from '../../../services/cardService';
-import { getComments, createComment, updateComment, deleteComment } from '../../../services/commentService';
-import { formatTimeAgo } from '../../../utils/time'; 
+import { Card as CardModel } from '../../../../models/Card';
+import { Comment as CommentModel } from '../../../../models/Comment';
+import { List as ListModel } from '../../../../models/List';
+import { updateCard } from '../../../../services/cardService';
+import { getComments, createComment, updateComment, deleteComment } from '../../../../services/commentService';
+import { formatTimeAgo } from '../../../../utils/time'; 
 
 interface DetailedCardProps {
   onClose: (updatedState: Partial<CardModel>) => void;

@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { DragDropContext} from "react-beautiful-dnd";
 
-import NavbarTop from "./components/Navbar/NavbarTop";
-import NavbarBottom from "./components/Navbar/NavbarBottom";
-import DownTab from "./components/DownTab/DownTab";
-import List from "./components/List/List";
-import AddAnotherList from "./components/List/AddAnotherList";
+import NavbarTop from "./shared/components/Navbar/NavbarTop";
+import NavbarBottom from "./shared/components/Navbar/NavbarBottom";
+import DownTab from "./shared/components/DownTab/DownTab";
+import List from "./shared/components/List/List";
+import AddAnotherList from "./shared/components/List/AddAnotherList";
 
 import "./App.css";
 

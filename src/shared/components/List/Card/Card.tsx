@@ -6,10 +6,10 @@ import SaveButton from '../Button/SaveButton';
 import CloseButton from '../Button/CloseButton';
 import './Card.scss';
 import DetailedCard from './DetailedCard';
-import { Card as CardModel } from '../../../models/Card';
-import { Comment as CommentModel } from '../../../models/Comment';
-import { List as ListModel } from '../../../models/List';
-import { updateCard } from '../../../services/cardService';
+import { Card as CardModel } from '../../../../models/Card';
+import { Comment as CommentModel } from '../../../../models/Comment';
+import { List as ListModel } from '../../../../models/List';
+import { updateCard } from '../../../../services/cardService';
 interface CardProps {
   id: string;
   index: number;
