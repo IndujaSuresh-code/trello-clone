@@ -10,7 +10,6 @@ import { Card as CardModel } from '../../../models/Card';
 import { Comment as CommentModel } from '../../../models/Comment';
 import { List as ListModel } from '../../../models/List';
 import { updateCard } from '../../../services/cardService';
-
 interface CardProps {
   id: string;
   index: number;
@@ -115,7 +114,7 @@ const Card: React.FC<CardProps> = ({
 
   return (
     <Draggable draggableId={id} index={index}>
-      {(provided) => (
+      {(provided: LocalDraggableProvided) => (
         <div
           className="card-wrapper"
           ref={provided.innerRef}
@@ -235,5 +234,12 @@ const Card: React.FC<CardProps> = ({
     </Draggable>
   );
 };
+
+// Local type definition for DraggableProvided with improved types
+interface LocalDraggableProvided {
+  innerRef: (element?: HTMLElement | null) => void;
+  draggableProps: React.HTMLAttributes<HTMLElement>;
+  dragHandleProps: React.HTMLAttributes<HTMLElement>;
+}
 
 export default Card;

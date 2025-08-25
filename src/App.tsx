@@ -1,24 +1,38 @@
 import { useEffect, useState } from "react";
-import { DragDropContext } from "react-beautiful-dnd";
-import type { DropResult } from "react-beautiful-dnd";
+import { DragDropContext} from "react-beautiful-dnd";
+
 import NavbarTop from "./components/Navbar/NavbarTop";
 import NavbarBottom from "./components/Navbar/NavbarBottom";
 import DownTab from "./components/DownTab/DownTab";
 import List from "./components/List/List";
 import AddAnotherList from "./components/List/AddAnotherList";
+
 import "./App.css";
 
 import { List as ListModel } from "./models/List";
 import { Card as CardModel } from "./models/Card";
 
-import { getLists, createList, deleteList} from "./services/listService";
-import type{ NewListPayload } from "./services/listService";
+import { getLists, createList, deleteList } from "./services/listService";
+import type { NewListPayload } from "./services/listService";
 
 import { getCards, createCard, deleteCard } from "./services/cardService";
 import { createComment } from "./services/commentService";
-//Payload = the data you send to the backend in a request.
-//only include the fields you want to update.
-import type{ NewCommentPayload } from "./services/commentService";
+import type { NewCommentPayload } from "./services/commentService";
+
+
+type MyDropResult = {
+  draggableId: string;
+  type: string;
+  reason: "DROP" | "CANCEL";
+  source: {
+    index: number;
+    droppableId: string;
+  };
+  destination: {
+    index: number;
+    droppableId: string;
+  } | null;
+};
 
 function App() {
   const [lists, setLists] = useState<ListModel[]>([]);
@@ -43,42 +57,42 @@ function App() {
     fetchAllData();
   }, []);
 
-  const onDragEnd = (result: DropResult) => {
-    const { source, destination } = result;
-    if (!destination) return;
+const onDragEnd = (result: MyDropResult) => {
+  const { source, destination } = result;
+  if (!destination) return;
 
-    if (source.droppableId === destination.droppableId) {
-      const listToUpdate = lists.find((list) => list.id === source.droppableId);
-      if (!listToUpdate) return;
+  if (source.droppableId === destination.droppableId) {
+    const listToUpdate = lists.find((list) => list.id === source.droppableId);
+    if (!listToUpdate) return;
 
-      const newCards = [...listToUpdate.cards];
-      const [removed] = newCards.splice(source.index, 1);
-      newCards.splice(destination.index, 0, removed);
+    const newCards = [...listToUpdate.cards];
+    const [removed] = newCards.splice(source.index, 1);
+    newCards.splice(destination.index, 0, removed);
 
-      setLists(
-        lists.map((list) =>
-          list.id === source.droppableId ? { ...list, cards: newCards } : list
-        )
-      );
-    } else {
-      const sourceList = lists.find((list) => list.id === source.droppableId);
-      const destinationList = lists.find((list) => list.id === destination.droppableId);
-      if (!sourceList || !destinationList) return;
+    setLists(
+      lists.map((list) =>
+        list.id === source.droppableId ? { ...list, cards: newCards } : list
+      )
+    );
+  } else {
+    const sourceList = lists.find((list) => list.id === source.droppableId);
+    const destinationList = lists.find((list) => list.id === destination.droppableId);
+    if (!sourceList || !destinationList) return;
 
-      const newSourceCards = [...sourceList.cards];
-      const newDestinationCards = [...destinationList.cards];
-      const [movedCard] = newSourceCards.splice(source.index, 1);
-      newDestinationCards.splice(destination.index, 0, movedCard);
+    const newSourceCards = [...sourceList.cards];
+    const newDestinationCards = [...destinationList.cards];
+    const [movedCard] = newSourceCards.splice(source.index, 1);
+    newDestinationCards.splice(destination.index, 0, movedCard);
 
-      setLists(
-        lists.map((list) => {
-          if (list.id === source.droppableId) return { ...list, cards: newSourceCards };
-          if (list.id === destination.droppableId) return { ...list, cards: newDestinationCards };
-          return list;
-        })
-      );
-    }
-  };
+    setLists(
+      lists.map((list) => {
+        if (list.id === source.droppableId) return { ...list, cards: newSourceCards };
+        if (list.id === destination.droppableId) return { ...list, cards: newDestinationCards };
+        return list;
+      })
+    );
+  }
+};
 
   const handleMoveCard = async (
     cardId: string,
@@ -190,7 +204,6 @@ function App() {
               id={list.id}
               title={list.title}
               initialCards={list.cards}
-              listColor={list.listColor}
               lists={lists}
               onArchiveList={handleArchiveList}
               onCopyList={handleCopyList}
