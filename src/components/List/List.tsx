@@ -140,7 +140,7 @@ const List: React.FC<ListProps> = ({
         )}
         <div className="list-header-icons">
           <img
-            src="src/assets/icons/collapse.png"
+            src="/icons/collapse.png"
             alt="collapse"
             className="collapse-icon"
             onClick={() => setIsCollapsed(!isCollapsed)}

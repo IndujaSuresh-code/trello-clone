@@ -142,7 +142,7 @@ const Card: React.FC<CardProps> = ({
                         onMouseLeave={hideTooltip}
                       >
                         <span className="icon-eye">
-                          <img src="src/assets/icons/watch.png" alt="watch" />
+                          <img src="/icons/watch.png" alt="watch" />
                         </span>
                       </div>
                     )}
@@ -153,7 +153,7 @@ const Card: React.FC<CardProps> = ({
                         onMouseLeave={hideTooltip}
                       >
                         <span className="icon-desc">
-                          <img src="src/assets/icons/description.png" alt="description" />
+                          <img src="/icons/description.png" alt="description" />
                         </span>
                       </div>
                     )}
@@ -164,7 +164,7 @@ const Card: React.FC<CardProps> = ({
                         onMouseLeave={hideTooltip}
                       >
                         <span className="icon-comment">
-                          <img src="src/assets/icons/comment.png" alt="comment" />
+                          <img src="/icons/comment.png" alt="comment" />
                         </span>
                         <span className="comment-count">{comments.length}</span>
                       </div>

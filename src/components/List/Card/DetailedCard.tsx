@@ -129,7 +129,7 @@ const DetailedCard: React.FC<DetailedCardProps> = ({
           <div className="left-panel">
             <div className="card-list-dropdown" onClick={() => setShowMoveModal(true)}>
               <span className="dropdown-title">{listTitle}</span>
-              <img src="src/assets/icons/down.png" alt="dropdown arrow" className="dropdown-arrow" />
+              <img src="/icons/down.png" alt="dropdown arrow" className="dropdown-arrow" />
             </div>
 
             <h2 className="card-title-modal">

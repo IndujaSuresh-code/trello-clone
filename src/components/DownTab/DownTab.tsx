@@ -4,17 +4,17 @@ function DownTab() {
   return (
     <div className="down-tab">
       <div className="down-tab__item">
-        <img src="src/assets/icons/t1.png" alt="Inbox icon" className="down-tab__icon" />
+        <img src="/icons/t1.png" alt="Inbox icon" className="down-tab__icon" />
         <p className="down-tab__label">Inbox</p>
       </div>
 
       <div className="down-tab__item">
-        <img src="src/assets/icons/t2.png" alt="Planner icon" className="down-tab__icon" />
+        <img src="/icons/t2.png" alt="Planner icon" className="down-tab__icon" />
         <p className="down-tab__label">Planner</p>
       </div>
 
       <div className="down-tab__item down-tab__item--active">
-        <img src="src/assets/icons/t3.png" alt="Boards icon" className="down-tab__icon" />
+        <img src="/icons/t3.png" alt="Boards icon" className="down-tab__icon" />
         <p className="down-tab__label">Board</p>
       </div>
 

@@ -87,7 +87,7 @@ const MoveCardModal: React.FC<MoveCardModalProps> = ({
                 >
                   <option value={boardTitle}>{boardTitle}</option>
                 </select>
-                <img src="src/assets/icons/down.png" alt="dropdown" className="dropdown-icon" />
+                <img src="/icons/down.png" alt="dropdown" className="dropdown-icon" />
               </div>
             </div>
 
@@ -106,7 +106,7 @@ const MoveCardModal: React.FC<MoveCardModalProps> = ({
                       </option>
                     ))}
                   </select>
-                  <img src="src/assets/icons/down.png" alt="dropdown" className="dropdown-icon" />
+                  <img src="/icons/down.png" alt="dropdown" className="dropdown-icon" />
                 </div>
               </div>
 
@@ -124,7 +124,7 @@ const MoveCardModal: React.FC<MoveCardModalProps> = ({
                       </option>
                     ))}
                   </select>
-                  <img src="src/assets/icons/down.png" alt="dropdown" className="dropdown-icon" />
+                  <img src="/icons/down.png" alt="dropdown" className="dropdown-icon" />
                 </div>
               </div>
             </div>

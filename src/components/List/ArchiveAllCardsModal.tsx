@@ -12,11 +12,11 @@ const ArchiveAllCardsModal: React.FC<ArchiveAllCardsModalProps> = ({ onClose, on
       <div className="archive-all-cards-modal">
         <div className="modal-header">
           <button className="back-button" onClick={onClose}>
-            <img src="src/assets/icons/ab.png" alt="Back" />
+            <img src="/icons/ab.png" alt="Back" />
           </button>
           <span className="modal-title">Are you sure?</span>
           <button className="close-button" onClick={onClose}>
-            <img src="src/assets/icons/close.png" alt="Close" />
+            <img src="/icons/close.png" alt="Close" />
           </button>
         </div>
         <div className="modal-content">
